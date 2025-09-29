@@ -1,0 +1,21 @@
+# offline-rag-system/backend/requirements.txt
+fastapi==0.118.0
+uvicorn==0.37.0
+pydantic==2.11.0
+langchain==0.3.1
+langchain-community==0.3.1
+langchain-huggingface==0.1.0
+langchain-chroma==0.1.4
+langchain-ollama==0.2.0
+chromadb==0.5.3
+sentence-transformers==3.1.1
+cryptography==43.0.1
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.20
+easyocr==1.7.2
+whisper==1.1.10
+python-docx==1.2.0
+pypdf==6.1.1
+torch==2.4.1 
+# uvicorn main:app --host 0.0.0.0 --port 8000

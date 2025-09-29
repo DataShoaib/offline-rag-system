@@ -1,0 +1,79 @@
+[
+    {
+        "timestamp": "2025-09-29T18:44:36.204330",
+        "user": "admin",
+        "query": "hey",
+        "answer": "\nHello! How are you?",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T18:44:40.227930",
+        "user": "admin",
+        "query": "hey",
+        "answer": "\nHey there! How are you today?",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T18:44:44.580441",
+        "user": "admin",
+        "query": "hey",
+        "answer": "\nHey there! How are you doing today?",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T18:44:47.434365",
+        "user": "admin",
+        "query": "hey",
+        "answer": "\nHello! How are you?",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T18:44:51.957399",
+        "user": "admin",
+        "query": "hey",
+        "answer": "\nHey there! How are you doing today?",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T18:44:56.319682",
+        "user": "admin",
+        "query": "hey",
+        "answer": "\nHey there! How are you doing today?",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T19:30:54.166061",
+        "user": "admin",
+        "query": "hey",
+        "answer": " Hello! How can I assist you today?\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T19:31:16.285196",
+        "user": "admin",
+        "query": "what your model name",
+        "answer": " I'm sorry, but I do not have access to your model name or any specific data about it. As an AI language model, I can provide general information and answer questions using a pre-existing dataset if you provide me with enough details. Could you please provide more context so that I can assist you better?\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T19:31:44.284632",
+        "user": "admin",
+        "query": "i m shoaib",
+        "answer": " I am sorry, but I cannot answer that question as it does not provide enough information about what you are referring to specifically. Could you please rephrase or provide more context so that I can better understand your question?\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T19:31:55.102381",
+        "user": "admin",
+        "query": "i m shoaib",
+        "answer": " Based on the given context, it is not possible for me to answer your question as I am an AI language model and do not have access to your personal information or past conversations. Additionally, I would need more specific information about your question in order to provide a meaningful response.\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-29T19:32:02.720671",
+        "user": "admin",
+        "query": "i m shoaib",
+        "answer": " There is no information provided in the context to answer your question, \"i am shoaib\". Please provide more context or a specific question for me to assist you better.\n",
+        "citations": []
+    }
+]
