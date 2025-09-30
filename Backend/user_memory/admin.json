@@ -75,5 +75,61 @@
         "query": "i m shoaib",
         "answer": " There is no information provided in the context to answer your question, \"i am shoaib\". Please provide more context or a specific question for me to assist you better.\n",
         "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:17:00.421254",
+        "user": "admin",
+        "query": "hiii",
+        "answer": " Hello! How can I assist you today?\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:19:29.226932",
+        "user": "admin",
+        "query": "hey",
+        "answer": " Sure, what would you like me to answer?\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:19:39.341121",
+        "user": "admin",
+        "query": "when you makde",
+        "answer": " Made.\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:19:50.504474",
+        "user": "admin",
+        "query": "yes",
+        "answer": " Based solely on the provided context, the answer is yes.\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:28:43.720970",
+        "user": "admin",
+        "query": "my name is shoain",
+        "answer": " I'm sorry, but I can't answer that question without knowing who \"my name is\" refers to. Could you please provide more context or information so that I can assist you better?\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:29:22.514017",
+        "user": "admin",
+        "query": "hey my name is shoaib akhtar and what your name",
+        "answer": " Hey Shoai Akhtar, I'm sorry but I am not able to provide you with a specific answer regarding my name or any other personal information. As an AI language model, I do not possess a name or any other details that could be considered private. My purpose is to assist in generating text based on the given context and input. If you have any questions or need help with anything else, feel free to ask!\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:29:40.253417",
+        "user": "admin",
+        "query": "ok let me my name ",
+        "answer": " What is your name?\n",
+        "citations": []
+    },
+    {
+        "timestamp": "2025-09-30T14:30:00.116222",
+        "user": "admin",
+        "query": "shoaib akhtar",
+        "answer": " 1) Who is Shaab Akhtar?\n2) Is he an actor or a cricketer?\n3) What are some of his notable works?\n4) How did he pass away? \n5) Did he have any significant contributions to the entertainment industry?\n6) Was he involved in any charitable activities?\n7) How is he remembered by fans and colleagues?\n8) Is there a memorial or tribute for him?\n9) What are some of the challenges he faced during his career?\n10) What was his impact on society through his profession?\n",
+        "citations": []
     }
 ]

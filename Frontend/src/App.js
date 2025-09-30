@@ -1,20 +1,32 @@
-// offline-rag-system/frontend/src/App.js
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Login';
-import Dashboard from './Dashboard';
+import LoginPage from './components/LoginPage';
+import ChatPage from './components/ChatPage';
+import { AuthProvider, useAuth } from './context/AuthContext';
+
+function PrivateRoute({ children }) {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" />;
+}
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token'));
-
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route path="/dashboard" element={token ? <Dashboard token={token} /> : <Navigate to="/login" />} />
-        <Route path="/" element={<Navigate to="/login" />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/chat"
+            element={
+              <PrivateRoute>
+                <ChatPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/chat" />} /> {/* Default route */}
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
