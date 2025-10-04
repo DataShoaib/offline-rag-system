@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/ChatPage.css'; // Make sure this path is correct
-import ntroLogo from '../assets/ntro_logo.png'; // Make sure this path is correct
-import Message from './Message'; // Make sure this path is correct
+import '../styles/ChatPage.css';
+import ntroLogo from '../assets/ntro_logo.png';
+import Message from './Message';
 import { format } from 'date-fns';
 
 function ChatPage() {
@@ -14,34 +14,37 @@ function ChatPage() {
     const [inputMessage, setInputMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [history, setHistory] = useState([]);
-    const [usersList, setUsersList] = useState([]); // For Admin panel
-    const [newUsername, setNewUsername] = useState(''); // For Admin panel
-    const [newPassword, setNewPassword] = useState(''); // For Admin panel
+    const [usersList, setUsersList] = useState([]);
+    const [newUsername, setNewUsername] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [currentConversationId, setCurrentConversationId] = useState(null);
+    const [citationPreview, setCitationPreview] = useState(null);
+    const [previewContent, setPreviewContent] = useState(null);
+    const [previewError, setPreviewError] = useState(null);
     const messagesEndRef = useRef(null);
     const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 
-    // Scroll to the bottom of the chat area
+    const logStyle = 'background: #fdbb2d; color: black; padding: 2px 4px; border-radius: 2px;';
+
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
-    // Fetch conversation history for the current user
     const fetchHistory = useCallback(async () => {
         const token = localStorage.getItem('access_token');
         if (!token) {
-            console.warn("Token missing in fetchHistory");
+            console.warn("fetchHistory: Token missing");
             return;
         }
         try {
             const response = await axios.get(`${API_BASE_URL}/memory`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            // Ensure history is sorted by timestamp descending for display
             const sortedHistory = (response.data || []).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
             setHistory(sortedHistory);
+            console.log(`fetchHistory: Fetched ${sortedHistory.length} conversations`);
         } catch (error) {
-            console.error("Error fetching history:", error);
+            console.error("fetchHistory: Error fetching history:", error);
             if (error.response?.status === 401) {
                 alert("Session expired. Please log in again.");
                 logout();
@@ -51,19 +54,18 @@ function ChatPage() {
         }
     }, [API_BASE_URL, logout, navigate]);
 
-    // Fetch list of users for Admin panel
     const fetchUsers = useCallback(async () => {
-        if (user?.role !== 'Admin') return; // Only Admin can view users
+        if (user?.role !== 'Admin') return;
         const token = localStorage.getItem('access_token');
         if (!token) return;
         try {
             const response = await axios.get(`${API_BASE_URL}/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            // Assuming response.data is directly the array of users as per `main.py` update
             setUsersList(Array.isArray(response.data) ? response.data : []);
+            console.log(`fetchUsers: Fetched ${response.data.length} users`);
         } catch (error) {
-            console.error("Error fetching users list:", error);
+            console.error("fetchUsers: Error fetching users list:", error);
             if (error.response?.status === 401) {
                 alert("Session expired. Please log in again.");
                 logout();
@@ -73,35 +75,31 @@ function ChatPage() {
         }
     }, [user, API_BASE_URL, logout, navigate]);
 
-    // Effects for authentication, history, and users list
     useEffect(() => { checkAuth(); }, [checkAuth]);
-    useEffect(() => { 
-        if (user) { 
-            fetchHistory(); 
-            // Only fetch users if the current user is an admin
+    useEffect(() => {
+        if (user) {
+            fetchHistory();
             if (user.role === 'Admin') {
-                fetchUsers(); 
+                fetchUsers();
             }
         }
     }, [user, fetchHistory, fetchUsers]);
-    
-    // Effect to scroll to bottom whenever messages update
+
     useEffect(scrollToBottom, [messages]);
 
-    // Handle sending a new message to the AI
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if (!inputMessage.trim() || loading) return;
         if (!user) return alert("You must be logged in to send messages");
 
         const userMessage = { text: inputMessage, sender: 'user', timestamp: new Date().toISOString() };
-        setMessages(prev => [...prev, userMessage]); // Add user message to chat
-        setInputMessage(''); // Clear input
-        setLoading(true); // Show loading indicator
+        setMessages(prev => [...prev, userMessage]);
+        setInputMessage('');
+        setLoading(true);
 
         const token = localStorage.getItem('access_token');
         if (!token) {
-            alert("Token missing! Please login again.");
+            alert("handleSendMessage: Token missing! Please login again.");
             setLoading(false);
             return;
         }
@@ -109,25 +107,25 @@ function ChatPage() {
         try {
             const payload = {
                 question: inputMessage,
-                conversation_id: currentConversationId // Include current conversation ID
+                conversation_id: currentConversationId
             };
             const response = await axios.post(`${API_BASE_URL}/query`, payload, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
+            console.log("handleSendMessage: Query response citations:", response.data.citations);
+
             const aiMessage = {
                 text: response.data.answer || "No answer available",
                 sender: 'ai',
-                citations: response.data.citations || [], // Include citations
+                citations: response.data.citations || [],
                 timestamp: new Date().toISOString()
             };
-            setMessages(prev => [...prev, aiMessage]); // Add AI message to chat
-            setCurrentConversationId(response.data.conversation_id); // Update conversation ID
-            
-            // Re-fetch history to show the latest conversation turn
-            fetchHistory(); 
+            setMessages(prev => [...prev, aiMessage]);
+            setCurrentConversationId(response.data.conversation_id);
+            fetchHistory();
         } catch (error) {
-            console.error("Error querying RAG:", error);
+            console.error("handleSendMessage: Error querying RAG:", error);
             if (error.response?.status === 401) {
                 alert("Session expired. Please log in again.");
                 logout();
@@ -135,28 +133,24 @@ function ChatPage() {
                 setLoading(false);
                 return;
             }
-            // Display error message in chat
             setMessages(prev => [...prev, {
                 text: `Error: ${error.response?.data?.detail || 'Could not get a response.'}`,
-                sender: 'ai', // Still display as AI message but with error styling
+                sender: 'ai',
                 isError: true,
                 timestamp: new Date().toISOString()
             }]);
-        } finally { 
-            setLoading(false); // Hide loading indicator
+        } finally {
+            setLoading(false);
         }
     };
 
-    // Handle user logout
-    const handleLogout = () => { 
-        logout(); 
-        navigate('/login'); 
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
     };
 
-    // Load a selected conversation from history into the chat area
     const loadHistoryItem = (conversationEntry) => {
         if (conversationEntry && Array.isArray(conversationEntry.messages)) {
-            // Map messages to the format expected by the Message component
             const convMessages = conversationEntry.messages.map(msg => ({
                 text: msg.text,
                 sender: msg.sender,
@@ -164,32 +158,32 @@ function ChatPage() {
                 timestamp: msg.timestamp
             }));
             setMessages(convMessages);
-            setCurrentConversationId(conversationEntry.id); // Set current conversation ID
+            setCurrentConversationId(conversationEntry.id);
+            console.log(`loadHistoryItem: Loaded conversation ${conversationEntry.id}`);
         } else {
             setMessages([]);
             setCurrentConversationId(null);
+            console.warn("loadHistoryItem: Invalid conversation entry");
         }
     };
 
-    // Start a new chat (clear current messages)
     const handleNewChat = () => {
         setMessages([]);
         setInputMessage('');
-        setCurrentConversationId(null); // Clear current conversation ID
+        setCurrentConversationId(null);
+        console.log("handleNewChat: Started new chat");
     };
 
-    // Handle file upload
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
         setLoading(true);
-        // Add a system message indicating upload in progress
         setMessages(prev => [...prev, { text: `Uploading <strong>${file.name}</strong>...`, sender: 'system', timestamp: new Date().toISOString() }]);
 
         const allowedTypes = [
             "application/pdf",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             "image/png", "image/jpeg", "image/gif",
             "audio/mpeg", "audio/wav"
         ];
@@ -211,30 +205,27 @@ function ChatPage() {
         try {
             const response = await axios.post(`${API_BASE_URL}/upload`, formData, {
                 headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
-                // Optional: Show upload progress
                 onUploadProgress: (progressEvent) => {
                     const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                     setMessages(prev => {
                         const msgs = [...prev];
-                        // Update the last system message if it's the upload progress for this file
                         if (msgs.length > 0 && msgs[msgs.length - 1].sender === 'system' && msgs[msgs.length - 1].text.startsWith('Uploading')) {
                             msgs[msgs.length - 1] = { ...msgs[msgs.length - 1], text: `Uploading <strong>${file.name}</strong>... ${percent}%` };
                         } else {
-                            // Or add a new one if it's the first progress update
                             msgs.push({ text: `Uploading <strong>${file.name}</strong>... ${percent}%`, sender: 'system', timestamp: new Date().toISOString() });
                         }
                         return msgs;
                     });
                 }
             });
-            // Final success message
             setMessages(prev => [...prev, { text: `File <strong>${file.name}</strong> uploaded and ingested successfully! (ID: <strong>${response.data.file_id}</strong>)`, sender: 'system', timestamp: new Date().toISOString() }]);
+            console.log(`handleFileUpload: Uploaded file ${file.name}, file_id=${response.data.file_id}`);
         } catch (error) {
-            console.error("Error uploading file:", error);
+            console.error("handleFileUpload: Error uploading file:", error);
             let errorMessage = "Upload failed: An unexpected error occurred.";
             if (error.response?.status === 401) {
                 errorMessage = "Upload failed: Session expired. Please log in again.";
-                logout(); // Log out if session expired
+                logout();
                 navigate('/login');
             } else if (error.response?.data?.detail) {
                 errorMessage = `Upload failed: ${error.response.data.detail}`;
@@ -242,87 +233,117 @@ function ChatPage() {
                 errorMessage = `Upload failed: ${error.message}`;
             }
             setMessages(prev => [...prev, { text: errorMessage, sender: 'system', isError: true, timestamp: new Date().toISOString() }]);
-        } finally { 
-            setLoading(false); 
-            // Clear the file input after upload attempt
-            e.target.value = null; 
+        } finally {
+            setLoading(false);
+            e.target.value = null;
         }
     };
 
-    // Handle viewing the source file for a citation
-    const viewCitationSource = async (file_id) => {
+    const viewCitationSource = async (file_id, file_type, page_num = null, start_time = null, original_filename = "document") => {
         if (!file_id) {
+            console.error("viewCitationSource: File ID is missing");
             alert("Source not available: File ID is missing.");
             return;
         }
+
+        console.log(`%cviewCitationSource: file_id=${file_id}, file_type=${file_type}, page_num=${page_num}, start_time=${start_time}, original_filename=${original_filename}`, logStyle);
+        setCitationPreview({ file_id, file_type, page_num, start_time, original_filename });
+        setPreviewContent(null);
+        setPreviewError(null);
+
         const token = localStorage.getItem('access_token');
         if (!token) {
-            alert("Token missing! Please login again.");
+            console.error("viewCitationSource: Authentication token missing");
+            setPreviewError("Authentication token missing. Please log in again.");
             return;
         }
+
         try {
-            const response = await axios.get(`${API_BASE_URL}/view/${file_id}`, {
+            const url = file_type === 'PDF' && page_num
+                ? `${API_BASE_URL}/preview/${file_id}?page_num=${page_num}`
+                : `${API_BASE_URL}/preview/${file_id}${start_time ? `?start_time=${start_time}` : ''}`;
+            console.log(`%cviewCitationSource: Fetching preview from ${url}`, logStyle);
+            const response = await axios.get(url, {
                 headers: { Authorization: `Bearer ${token}` },
-                responseType: 'blob' // Important for downloading files
+                responseType: 'blob'
             });
 
-            // Extract filename from content-disposition header if available, otherwise construct one
-            const contentDisposition = response.headers['content-disposition'];
-            let filename = `document-${file_id}`;
-            if (contentDisposition) {
-                const filenameMatch = contentDisposition.match(/filename="([^"]+)"/);
-                if (filenameMatch && filenameMatch[1]) {
-                    filename = filenameMatch[1];
-                }
-            } else if (response.data.type) {
-                const parts = response.data.type.split('/');
-                if (parts.length > 1) filename += `.${parts[1]}`; // Fallback for extension
-            }
+            const contentType = response.headers['content-type'];
+            console.log(`%cviewCitationSource: Response received, content-type=${contentType}, size=${response.data.size} bytes`, logStyle);
 
-            // Create a temporary URL and download link
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('target', '_blank'); // Open in new tab
-            link.setAttribute('download', filename); // Suggest filename for download
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            window.URL.revokeObjectURL(url); // Clean up the temporary URL
+            if (contentType.includes('image')) {
+                const blobUrl = URL.createObjectURL(response.data);
+                console.log(`%cviewCitationSource: Using blob URL: ${blobUrl}`, logStyle);
+                setPreviewContent(null); // Reset to trigger re-render
+                setTimeout(() => setPreviewContent({ type: 'image', src: blobUrl }), 0);
+                // Log data URL for debugging
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    if (reader.result) {
+                        console.log(`%cviewCitationSource: Data URL generated, length=${reader.result.length}`, logStyle);
+                    } else {
+                        console.error("viewCitationSource: FileReader failed to generate data URL");
+                    }
+                };
+                reader.onerror = () => {
+                    console.error("viewCitationSource: FileReader error");
+                };
+                reader.readAsDataURL(response.data);
+            } else if (contentType.includes('audio')) {
+                const blobUrl = URL.createObjectURL(response.data);
+                console.log(`%cviewCitationSource: Audio blob URL generated: ${blobUrl}`, logStyle);
+                setPreviewContent({ type: 'audio', src: `${blobUrl}#t=${start_time || 0}` });
+            } else if (contentType.includes('text')) {
+                const text = await response.data.text();
+                console.log(`%cviewCitationSource: Text content received, length=${text.length}`, logStyle);
+                setPreviewContent({ type: 'text', content: text });
+            } else {
+                console.error(`viewCitationSource: Unsupported content type: ${contentType}`);
+                setPreviewError("Unsupported preview content type.");
+            }
         } catch (error) {
-            console.error("Error viewing source:", error);
+            console.error("viewCitationSource: Error fetching preview:", error);
             if (error.response?.status === 401) {
-                alert("Session expired. Please log in again.");
+                setPreviewError("Session expired. Please log in again.");
                 logout();
                 navigate('/login');
-            } else if (error.response?.status === 404) {
-                alert("Source file not found. It may have been deleted or not uploaded correctly. Please upload the file again.");
-            } else if (error.response?.status === 500) {
-                alert("Server error while accessing source. Check backend logs for details or encryption key validity.");
             } else {
-                alert(`Failed to view source: ${error.response?.data?.detail || error.message}`);
+                setPreviewError(`Failed to load preview: ${error.response?.data?.detail || error.message}`);
             }
         }
     };
 
-    // Handle creating a new user (Admin function)
+    const closeCitationPreview = () => {
+        if (previewContent?.type === 'image' && previewContent.src.startsWith('blob:')) {
+            URL.revokeObjectURL(previewContent.src);
+            console.log("closeCitationPreview: Revoked blob URL");
+        }
+        setCitationPreview(null);
+        setPreviewContent(null);
+        setPreviewError(null);
+        console.log("closeCitationPreview: Modal closed");
+    };
+
     const handleCreateUser = async (e) => {
         e.preventDefault();
         if (!newUsername || !newPassword) return alert("Please enter both username and password.");
         const token = localStorage.getItem('access_token');
         if (!token) {
-            alert("Token missing! Please login again.");
+            alert("handleCreateUser: Token missing! Please login again.");
             return;
         }
         try {
-            const payload = { username: newUsername, password: newPassword, role: "User" }; // Default to "User" role
-            const response = await axios.post(`${API_BASE_URL}/users`, payload, { headers: { Authorization: `Bearer ${token}` } });
+            const payload = { username: newUsername, password: newPassword, role: "User" };
+            const response = await axios.post(`${API_BASE_URL}/users`, payload, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             setNewUsername('');
             setNewPassword('');
-            await fetchUsers(); // Refresh user list
+            await fetchUsers();
             alert(response.data.message || "User created successfully!");
+            console.log(`handleCreateUser: Created user ${newUsername}`);
         } catch (error) {
-            console.error("Error creating user:", error);
+            console.error("handleCreateUser: Error creating user:", error);
             if (error.response?.status === 401) {
                 alert("Session expired. Please log in again.");
                 logout();
@@ -334,20 +355,22 @@ function ChatPage() {
         }
     };
 
-    // Handle deleting a user (Admin function)
     const handleDeleteUser = async (usernameToDelete) => {
         if (!window.confirm(`Are you sure you want to delete user "${usernameToDelete}"? This action cannot be undone.`)) return;
         const token = localStorage.getItem('access_token');
         if (!token) {
-            alert("Token missing! Please login again.");
+            alert("handleDeleteUser: Token missing! Please login again.");
             return;
         }
         try {
-            await axios.delete(`${API_BASE_URL}/users/${usernameToDelete}`, { headers: { Authorization: `Bearer ${token}` } });
-            await fetchUsers(); // Refresh user list
+            await axios.delete(`${API_BASE_URL}/users/${usernameToDelete}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            await fetchUsers();
             alert("User deleted successfully!");
+            console.log(`handleDeleteUser: Deleted user ${usernameToDelete}`);
         } catch (error) {
-            console.error("Error deleting user:", error);
+            console.error("handleDeleteUser: Error deleting user:", error);
             if (error.response?.status === 401) {
                 alert("Session expired. Please log in again.");
                 logout();
@@ -358,7 +381,6 @@ function ChatPage() {
         }
     };
 
-    // Format history date for display
     const formatHistoryDate = (timestamp) => {
         const date = new Date(timestamp);
         const today = new Date();
@@ -370,16 +392,25 @@ function ChatPage() {
         } else if (date.toDateString() === yesterday.toDateString()) {
             return "Yesterday";
         } else {
-            return format(date, 'MMM d, yyyy'); // e.g., "Jan 1, 2023"
+            return format(date, 'MMM d, yyyy');
+        }
+    };
+
+    const testImageDisplay = () => {
+        if (previewContent?.type === 'image' && previewContent.src) {
+            window.open(previewContent.src, '_blank');
+            console.log(`%ctestImageDisplay: Opened image in new tab: ${previewContent.src}`, logStyle);
+        } else {
+            alert("No image preview available to test.");
+            console.warn("testImageDisplay: No image preview available");
         }
     };
 
     return (
         <div className="ntro-chat-container">
-            <div className="background-animation-overlay"></div> {/* Optional: for background effects */}
-            
+            <div className="background-animation-overlay"></div>
+
             <div className={`ntro-main-panel ${user?.role === 'Admin' ? 'admin-mode' : ''}`}>
-                {/* Left Panel: Logo, New Chat, History, Upload, Admin Panel, User Info, Logout */}
                 <div className="ntro-left-panel">
                     <div className="ntro-agency-header">
                         <img src={ntroLogo} alt="NTRO Logo" className="ntro-header-logo" />
@@ -400,7 +431,6 @@ function ChatPage() {
                                 <li className="ntro-no-history">No past conversations.</li>
                             ) : (
                                 history.map((item) => {
-                                    // Find the first user message for a display title
                                     const firstUserMessage = (item && item.messages && Array.isArray(item.messages))
                                         ? item.messages.find(m => m.sender === 'user')
                                         : null;
@@ -410,9 +440,9 @@ function ChatPage() {
                                         : 'Untitled Conversation';
 
                                     return (
-                                        <li 
-                                            key={item.id || item.timestamp} 
-                                            onClick={() => loadHistoryItem(item)} 
+                                        <li
+                                            key={item.id || item.timestamp}
+                                            onClick={() => loadHistoryItem(item)}
                                             className={`ntro-history-item ${currentConversationId === item.id ? 'active-conversation' : ''}`}
                                         >
                                             <div className="history-item-text">
@@ -431,7 +461,6 @@ function ChatPage() {
                         <input id="file-upload" type="file" onChange={handleFileUpload} disabled={loading} style={{ display: 'none' }} />
                     </div>
 
-                    {/* Admin Panel (conditionally rendered for Admin users) */}
                     {user?.role === 'Admin' && (
                         <div className="ntro-admin-panel">
                             <h3>Admin Panel</h3>
@@ -449,7 +478,6 @@ function ChatPage() {
                                     usersList.map(u => (
                                         <li key={u.username}>
                                             {u.username} ({u.role || "User"})
-                                            {/* Prevent admin from deleting themselves or the default admin */}
                                             {u.username !== user.username && u.username !== "admin" && (
                                                 <button onClick={() => handleDeleteUser(u.username)} className="delete-user-button">Delete</button>
                                             )}
@@ -462,14 +490,13 @@ function ChatPage() {
 
                     <div className="ntro-user-controls">
                         <div className="ntro-user-info">
-                            <span className="user-icon">👤</span> {/* User icon */}
+                            <span className="user-icon">👤</span>
                             <span>{user?.username} ({user?.role})</span>
                         </div>
                         <button onClick={handleLogout} className="ntro-logout-button">Logout</button>
                     </div>
                 </div>
 
-                {/* Right Panel: Chat Area and Input */}
                 <div className="ntro-right-panel">
                     <div className="ntro-chat-area">
                         {messages.length === 0 && (
@@ -481,10 +508,10 @@ function ChatPage() {
                         )}
 
                         {messages.map((msg, index) => (
-                            <Message 
-                                key={index} // Consider a more stable key for production, like message ID if available
-                                message={msg} 
-                                onCitationClick={viewCitationSource} 
+                            <Message
+                                key={index}
+                                message={msg}
+                                onCitationClick={viewCitationSource}
                             />
                         ))}
 
@@ -494,16 +521,16 @@ function ChatPage() {
                                 <div className="loading-dots"><span>.</span><span>.</span><span>.</span></div>
                             </div>
                         )}
-                        <div ref={messagesEndRef} /> {/* For auto-scrolling */}
+                        <div ref={messagesEndRef} />
                     </div>
 
                     <form onSubmit={handleSendMessage} className="ntro-chat-input-form">
-                        <input 
-                            type="text" 
-                            value={inputMessage} 
+                        <input
+                            type="text"
+                            value={inputMessage}
                             onChange={(e) => setInputMessage(e.target.value)}
-                            placeholder="Ask NTRO AI..." 
-                            disabled={loading || !user} // Disable if loading or not logged in
+                            placeholder="Ask NTRO AI..."
+                            disabled={loading || !user}
                         />
                         <button type="submit" disabled={loading || !user}><span className="ntro-send-icon">➤</span></button>
                     </form>
@@ -513,6 +540,68 @@ function ChatPage() {
                     </p>
                 </div>
             </div>
+
+            {citationPreview && (
+                <div className="citation-preview-modal-overlay" onClick={closeCitationPreview}>
+                    <div className="citation-preview-modal-content" onClick={e => e.stopPropagation()}>
+                        <button className="close-preview-button" onClick={closeCitationPreview}>&times;</button>
+                        <h3>
+                            Preview: {citationPreview.original_filename}
+                            {citationPreview.file_type === 'PDF' && citationPreview.page_num && ` (Page ${citationPreview.page_num})`}
+                            {citationPreview.file_type === 'AUDIO' && citationPreview.start_time && ` (Start: ${citationPreview.start_time}s)`}
+                        </h3>
+                        <div className="preview-content-area">
+                            {previewError && (
+                                <p className="preview-error">{previewError}</p>
+                            )}
+                            {!previewContent && !previewError && (
+                                <p className="preview-loading">Loading preview...</p>
+                            )}
+                            {previewContent && previewContent.type === 'image' && (
+                                <>
+                                    <img
+                                        src={previewContent.src}
+                                        alt={`Preview for ${citationPreview.original_filename}`}
+                                        className="preview-item preview-image"
+                                        onError={(e) => {
+                                            console.error("Image render error:", e);
+                                            setPreviewError("Failed to render image. Please try again.");
+                                        }}
+                                    />
+                                    <p>Image Source: {previewContent.src.startsWith('data:') ? 'Data URL' : 'Blob URL'}</p>
+                                    <button className="test-image-button" onClick={testImageDisplay} disabled={!previewContent?.src}>
+                                        Test Image in New Tab
+                                    </button>
+                                </>
+                            )}
+                            {previewContent && previewContent.type === 'audio' && (
+                                <audio
+                                    controls
+                                    className="preview-item preview-audio"
+                                    autoPlay={true}
+                                    src={previewContent.src}
+                                    onError={(e) => {
+                                        console.error("Audio playback error:", e);
+                                        setPreviewError("Failed to play audio. Please try again.");
+                                    }}
+                                >
+                                    Your browser does not support the audio element.
+                                </audio>
+                            )}
+                            {previewContent && previewContent.type === 'text' && (
+                                <div className="preview-item preview-text">{previewContent.content}</div>
+                            )}
+                            {citationPreview.file_type !== 'PDF' &&
+                             citationPreview.file_type !== 'IMAGE' &&
+                             citationPreview.file_type !== 'AUDIO' &&
+                             citationPreview.file_type !== 'DOCX' &&
+                             citationPreview.file_type !== 'TEXT' && (
+                                <p>No direct preview available for this file type. You can still download the original file <a href={`${API_BASE_URL}/view/${citationPreview.file_id}`} target="_blank" rel="noopener noreferrer">here</a>.</p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

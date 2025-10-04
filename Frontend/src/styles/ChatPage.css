@@ -888,3 +888,571 @@
     background-color: #2a2e33;
 }
 
+/* .ntro-chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  position: relative;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.background-animation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
+  opacity: 0.3;
+  z-index: -1;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.ntro-main-panel {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ntro-main-panel.admin-mode {
+  grid-template-columns: 350px 1fr;
+}
+
+.ntro-left-panel {
+  width: 300px;
+  background-color: #222222;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.ntro-agency-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ntro-header-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.agency-title h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.agency-title p {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin: 0;
+}
+
+.ntro-new-chat-section {
+  margin-bottom: 20px;
+}
+
+.ntro-new-chat-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.ntro-new-chat-button:hover {
+  background-color: #0056b3;
+}
+
+.ntro-history-section {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.ntro-history-section h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.ntro-history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ntro-history-item {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #333333;
+  transition: background-color 0.3s;
+}
+
+.ntro-history-item:hover,
+.ntro-history-item.active-conversation {
+  background-color: #444444;
+}
+
+.history-item-text {
+  font-size: 14px;
+}
+
+.history-date {
+  font-size: 12px;
+  color: #aaaaaa;
+  margin-left: 5px;
+}
+
+.ntro-no-history {
+  color: #aaaaaa;
+  font-style: italic;
+}
+
+.ntro-upload-section {
+  margin-bottom: 20px;
+}
+
+.ntro-upload-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.ntro-upload-button:hover {
+  background-color: #218838;
+}
+
+.ntro-admin-panel {
+  margin-bottom: 20px;
+}
+
+.ntro-admin-panel h3,
+.ntro-admin-panel h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.ntro-create-user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ntro-create-user-form input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #ffffff;
+}
+
+.ntro-create-user-form button {
+  padding: 8px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ntro-create-user-form button:hover {
+  background-color: #0056b3;
+}
+
+.ntro-users-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ntro-users-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: #333;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.delete-user-button {
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-user-button:hover {
+  background-color: #c82333;
+}
+
+.ntro-user-controls {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ntro-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.user-icon {
+  font-size: 20px;
+}
+
+.ntro-logout-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.ntro-logout-button:hover {
+  background-color: #c82333;
+}
+
+.ntro-right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.ntro-chat-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.ntro-welcome-message {
+  text-align: center;
+  color: #aaaaaa;
+}
+
+.ntro-welcome-message h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.ntro-welcome-message p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.ntro-chat-input-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ntro-chat-input-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.ntro-chat-input-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ntro-chat-input-form button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.ntro-send-icon {
+  font-size: 18px;
+}
+
+.ntro-disclaimer {
+  text-align: center;
+  font-size: 12px;
+  color: #aaaaaa;
+  margin-top: 10px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.message-bubble {
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.user-message .message-bubble {
+  background-color: #007bff;
+  color: #ffffff;
+  align-self: flex-end;
+}
+
+.ai-message .message-bubble {
+  background-color: #444;
+  color: #ffffff;
+  align-self: flex-start;
+}
+
+.system-message .message-bubble {
+  background-color: #555;
+  color: #ffffff;
+  align-self: center;
+  text-align: center;
+}
+
+.error-message .message-bubble {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.message-timestamp {
+  font-size: 12px;
+  color: #aaaaaa;
+  margin-top: 5px;
+  align-self: flex-end;
+}
+
+.ai-message .message-timestamp {
+  align-self: flex-start;
+}
+
+.citation-list-container {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.citation-list-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+.citation-list-container li {
+  margin-bottom: 5px;
+}
+
+.clickable-citation,
+.clickable-citation-list-item {
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.clickable-citation:hover,
+.clickable-citation-list-item:hover {
+  color: #0056b3;
+}
+
+.citation-preview-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.citation-preview-modal-content {
+  background: #333;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-preview-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.preview-content-area {
+  margin-top: 20px;
+}
+
+.preview-item {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+}
+
+.preview-image {
+  border-radius: 5px;
+}
+
+.preview-audio {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .ntro-main-panel {
+    flex-direction: column;
+  }
+
+  .ntro-left-panel {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #333;
+  }
+
+  .ntro-right-panel {
+    padding: 10px;
+  }
+
+  .ntro-chat-area {
+    padding: 10px;
+  }
+
+  .message-bubble {
+    max-width: 90%;
+  }
+
+  .citation-preview-modal-content {
+    width: 95%;
+    max-height: 90vh;
+  }
+} */
+ .citation-preview-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.citation-preview-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+
+.preview-item.preview-image {
+    max-width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    display: block; /* Ensure image is not hidden */
+}
+.test-image-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #1a2a6c; /* NTRO theme dark blue */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.test-image-button:hover {
+    background-color: #b21f1f; /* NTRO theme red */
+    transform: scale(1.05);
+}
+
+.test-image-button:active {
+    background-color: #fdbb2d; /* NTRO theme yellow */
+    transform: scale(0.95);
+}
+
+.test-image-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.preview-item.preview-image {
+    max-width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    display: block;
+    width: auto;
+    height: auto;
+}
+.citation-preview-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    min-width: 300px; /* Ensure minimum size */
+    min-height: 200px;
+}

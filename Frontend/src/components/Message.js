@@ -13,12 +13,20 @@ function Message({ message, onCitationClick }) {
     // Determine message styling class
     const messageClass = isUser ? 'user-message' : isAi ? 'ai-message' : 'system-message';
 
-    const handleCitationClick = (file_id, citationText) => {
-        if (!file_id) {
-            alert(`Source not available for "${citationText || 'this citation'}". File may have been deleted or not uploaded correctly.`);
+    // Updated handleCitationClick to pass all necessary citation details
+    const handleCitationClick = (citation) => {
+        if (!citation || !citation.file_id) {
+            alert(`Source not available for "${citation.text || 'this citation'}". File may have been deleted or not uploaded correctly.`);
             return;
         }
-        onCitationClick(file_id);
+        // Pass all relevant details to the parent handler
+        onCitationClick(
+            citation.file_id, 
+            citation.file_type, 
+            citation.page_num, 
+            citation.start_time, 
+            citation.original_filename
+        );
     };
 
     // Function to render message text with inline clickable citation numbers
@@ -51,6 +59,7 @@ function Message({ message, onCitationClick }) {
             }
 
             // Find the corresponding citation object
+            // Note: citations are 0-indexed in the array, but 1-indexed in the text, so adjust
             const citation = citations.find(c => c.text && c.text.startsWith(`[${citationNumber}]`));
 
             if (citation && citation.file_id) {
@@ -59,8 +68,8 @@ function Message({ message, onCitationClick }) {
                     <span
                         key={`citation-inline-${match.index}`}
                         className="citation-link clickable-citation"
-                        onClick={() => handleCitationClick(citation.file_id, citation.text)}
-                        title={`View Source: ${citation.text}`}
+                        onClick={() => handleCitationClick(citation)} // Pass the full citation object
+                        title={`View Source: ${citation.original_filename || citation.text}`}
                         style={{ cursor: 'pointer', color: '#007bff', textDecoration: 'underline' }}
                     >
                         {citationMarker}
@@ -113,8 +122,8 @@ function Message({ message, onCitationClick }) {
                                     <li key={i}>
                                         <span
                                             className="citation-link clickable-citation-list-item"
-                                            onClick={() => handleCitationClick(c.file_id, c.text)}
-                                            title={`View Source: ${c.text}`}
+                                            onClick={() => handleCitationClick(c)} // Pass the full citation object
+                                            title={`View Source: ${c.original_filename || c.text}`}
                                             style={{
                                                 cursor: 'pointer',
                                                 color: '#007bff',
@@ -122,6 +131,9 @@ function Message({ message, onCitationClick }) {
                                             }}
                                         >
                                             {c.text || `Source ${i + 1}`} {/* Fallback text */}
+                                            {c.original_filename && ` (${c.original_filename})`} {/* Show original filename */}
+                                            {c.file_type === 'PDF' && c.page_num && ` (Page ${c.page_num})`} {/* Show page number for PDFs */}
+                                            {c.file_type === 'AUDIO' && c.start_time !== undefined && ` (Start: ${c.start_time}s)`} {/* Show start time for audio */}
                                         </span>
                                     </li>
                                 ))}

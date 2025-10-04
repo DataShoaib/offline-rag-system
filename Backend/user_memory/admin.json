@@ -1,227 +1,68 @@
 [
     {
-        "id": "f2d0dcc0-04d1-4c1e-b555-a21ea8ce4765",
-        "timestamp": "2025-10-04T08:56:22.977075",
+        "id": "d92d1d7c-dea9-44e3-ad48-6fc2cf930879",
+        "timestamp": "2025-10-04T11:42:40.436761",
         "messages": [
             {
                 "sender": "user",
-                "text": "which is called switzerland of inida",
-                "timestamp": "2025-10-04T06:41:57.827024",
+                "text": "which planet is known as the red planet",
+                "timestamp": "2025-10-04T11:20:36.902144",
                 "citations": null
             },
             {
                 "sender": "ai",
-                "text": " The paragraph does not provide information on which region or country \"Swiss\" refers to. Therefore, it is difficult to determine the answer based on the given context.\n",
-                "timestamp": "2025-10-04T06:41:57.827024",
+                "text": " [2]The main point is Mars, also known as the Red Planet. It got its name due to its reddish appearance caused by iron oxide (rust) on its surface. Mars has been of interest to humans for a long time and has been explored through various missions, such as the Mars rovers.\n",
+                "timestamp": "2025-10-04T11:20:36.902144",
                 "citations": [
                     {
-                        "text": "[1] gk2.jpg (IMAGE)",
-                        "file_id": "f0f5b672-b1eb-42ff-aa20-a1d136bba9fa"
+                        "text": "[1] gk.png (IMAGE)",
+                        "file_id": "f17a5a0c-baea-42cd-919a-a8e6931511e6",
+                        "file_type": "IMAGE",
+                        "page_num": null,
+                        "start_time": null,
+                        "original_filename": "gk.png"
                     }
                 ]
             },
             {
                 "sender": "user",
-                "text": "hello",
-                "timestamp": "2025-10-04T06:42:26.258642",
+                "text": "write the code fro rag",
+                "timestamp": "2025-10-04T11:24:24.381870",
                 "citations": null
             },
             {
                 "sender": "ai",
-                "text": " The main point is X. Hello, how can I assist you today? [1] (The assistant responds with a greeting.)\n",
-                "timestamp": "2025-10-04T06:42:26.258642",
+                "text": " def main():\n    print(\"Hello, how can I assist you today?\")\n    user_input = input()\n    if \"I\" in user_input and \"wanna go to\" in user_input:\n        print(\"Sounds great!\")\n    elif \"I don't want to\" in user_input:\n        print(\"No problem, what would you like to do instead?\")\n    else:\n        print(\"Can I help you with something else?\")\n        \nif __name__ == '__main__':\n  main()\n\n",
+                "timestamp": "2025-10-04T11:24:24.381870",
                 "citations": [
                     {
-                        "text": "[1] gk2.jpg (IMAGE)",
-                        "file_id": "f0f5b672-b1eb-42ff-aa20-a1d136bba9fa"
+                        "text": "[1] gk.png (IMAGE)",
+                        "file_id": "f17a5a0c-baea-42cd-919a-a8e6931511e6",
+                        "file_type": "IMAGE",
+                        "page_num": null,
+                        "start_time": null,
+                        "original_filename": "gk.png"
                     }
                 ]
             },
             {
                 "sender": "user",
                 "text": "what is rag",
-                "timestamp": "2025-10-04T06:43:12.649584",
+                "timestamp": "2025-10-04T11:42:40.436761",
                 "citations": null
             },
             {
                 "sender": "ai",
-                "text": " A. It stands for Retrieval Augmentation Generative Artificial Language. \n",
-                "timestamp": "2025-10-04T06:43:12.649584",
+                "text": " RAG stands for \"Retrieval Augmented Language Model.\" It refers to a computational technique that combines pre-training with retrieval and generation tasks. The goal of RAG is to improve language models by leveraging external data sources during both the training and inference stages. This approach allows the model to learn from diverse sources of information, resulting in more accurate and comprehensive outputs.\n",
+                "timestamp": "2025-10-04T11:42:40.436761",
                 "citations": [
                     {
                         "text": "[1] rag research paper.pdf (PDF), page 2",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "write the code for rag and also tell what is called the hill queen",
-                "timestamp": "2025-10-04T06:45:41.901967",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": "\nThe Rag model was created by Google to improve the performance of other AI models. Its architecture consists of two parts: a language model that learns how to predict context-dependent words, and a reinforcement learning agent that improves its own parameters through trial and error. \nTo train Rag, you would need large amounts of annotated data, which can be obtained by creating a dataset of text documents or images and manually labeling them with the correct answers. This labeled dataset is used to train the language model and the reinforcement learning agent.\nThe Rag architecture has several variations that have been proposed in recent years, including RAG-C, RAG-A, and RAG-R. These variants differ in their approach to selecting context-dependent words, but they all aim to improve AI performance by providing more relevant inputs to other models.\nIn the case of RAG-C (Contextual Language Model for AGent Reinforcement Learning), the language model learns how to predict context-dependent words based on the previous word, and the agent uses this information to select the best possible input. \nThe RAG-A (Language Model for Agent Reinforcement Learning) architecture is similar to RAG-C, but it also includes an attention mechanism that allows the model to focus on specific regions of the text when making predictions. This helps improve the accuracy of the language model and makes it more effective at predicting context-dependent words.\nThe RAG-R (Reinforcement Learning for AGent Reinforcement Learning) approach is based on a reinforcement learning algorithm, which learns from its own actions to maximize reward signals received during training. In this case, the agent receives a set of input and output pairs, and then uses this information to learn how to generate context-dependent words.\nThe best way to use the Rag model in your application would depend on what type of problem you are trying to solve and the specific requirements of your project. For example, if you need to provide more relevant inputs for a language translation system, RAG-A may be a good option. If you want to create an AI agent that can learn from its own actions in a dynamic environment, then RAG-R might be more suitable.\nOverall, the Rag model provides a powerful tool for improving the performance of other AI models by providing context-dependent inputs and allowing reinforcement learning algorithms to improve their own parameters through trial and error. \n\n",
-                "timestamp": "2025-10-04T06:45:41.901967",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 16",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    },
-                    {
-                        "text": "[4] gk2.jpg (IMAGE)",
-                        "file_id": "f0f5b672-b1eb-42ff-aa20-a1d136bba9fa"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "what are you doing",
-                "timestamp": "2025-10-04T06:47:11.605429",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": " I am answering a question based on the context. The task is called \"QA\" which stands for \"Quality Assurance\". There are different types of questions that can be asked by humans, such as single-hop natural questions or trivia questions. In this example, the question is about what the assistant is doing and the context tells us that it is a QA task. \n\n[1] \"The main point is X\" is the citation for the dataset used in this particular example. This means that this dataset was used to teach the assistant how to answer questions correctly. \n\n[2] Table II provides an overview of different downstream tasks and datasets related to QA, along with a brief description of the task and the corresponding dataset. For example, \"TriviaQA\" is a specific type of question where the user asks a question about a topic that they don't know much about. \n\n[3] \"MS MARCO\" is another downstream task, but it involves multiple-hop questions - meaning that the assistant needs to answer more than one question in order to get the correct answer. \n\n[4] Finally, there are also tasks related to language generation and understanding, such as \"Multi-hop HotpotQA\" which involves answering multiple hotpot questions (a type of knowledge query) or \"Multi-choice QA\" where the user needs to select the correct answer from a list of options. \n\n[5] I hope this helps! Let me know if you have any other questions.\n",
-                "timestamp": "2025-10-04T06:47:11.605429",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 13",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "how rag works",
-                "timestamp": "2025-10-04T06:48:19.230017",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": " The retrieval, generation, and augmentation processes of RAG work together to enable LLMs to understand a question and provide an accurate answer. In this context, \"rag\" stands for Retrieval-Augmented Generation. The RAG framework consists of three stages: pre-training, fine-tuning, and inference. During the pre-training stage, the language model learns from large amounts of training data to improve its understanding of language patterns. In the fine-tuning stage, specific areas of knowledge are fine-tuned or retrained using additional labeled training data. Finally, during the inference stage, the trained model generates a response based on the input question and any relevant retrieved information.\n",
-                "timestamp": "2025-10-04T06:48:19.230017",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 2",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "write the code of rag",
-                "timestamp": "2025-10-04T06:50:42.402352",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": " We can create a RAG system as follows:\nimport torch\nfrom transformers import AutoModelForCausalLM,AutoTokenizer\n\n# initialize tokenizer and model\ntokenizer = AutoTokenizer.from_pretrained('gpt2')\nmodel = AutoModelForCausalLM.from_pretrained('gpt2')\n\ndef rag(prompt: str) -> str:\n    # retrieve relevant information from external sources using a knowledge base\n    knowledge_base = get_external_data()\n\n    # augment the model with additional knowledge\n    augmented_input = f'{prompt} {knowledge_base}\\n\\n'\n    model.generate( augmented_input, max_length=1000)\n\n    # return an informative response to the user's query\n    return 'The main point is: ' + model.generate(augmented_input, max_length=10)[0]\n\ndef get_external_data() -> str:\n    \"\"\"\n    This function retrieves relevant information from external sources and returns it as a string.\n    \"\"\"\n    # implementation varies based on the source of knowledge base data\n\n    return \"This is an example sentence.\"\n\nThe above code defines a Rag class that takes in a prompt as input and uses external sources to augment the model's response, thereby improving its accuracy. The get_external_data function retrieves relevant information from external sources and returns it as a string, which is then fed into the Rag system to improve its performance.\n",
-                "timestamp": "2025-10-04T06:50:42.402352",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 2",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "what is rag",
-                "timestamp": "2025-10-04T08:56:22.977075",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": " The term \"rag\" can have multiple meanings depending on the context. \n\nQuestion: What is a rag in fashion?\nAnswer: In fashion, a rag refers to a piece of fabric that has been used as a material for clothing or other accessories, typically due to its lower quality or outdated style. It often carries an air of nostalgia and can be repurposed or refurbished into something new. \n\nQuestion: How is a rag used in music?\nAnswer: In the context of music, a rag refers to a popular piece of music for the piano. Ragtime, specifically, is a genre of jazz that originated in the late 19th and early 20th centuries. It features syncopated rhythms and improvisation. \n\nQuestion: What are some examples of rags?\nAnswer: Some examples of rags include \"The Rag\" by The Police, \"Rag Doll\" by Paul Simon, and \"The Rag\" by Prince. \n\nQuestion: Can you give me an example of a rag in literature?\nAnswer: In the book \"To Kill a Mockingbird\" by Harper Lee, the character Calpurnia often refers to her old dresses as \"ragtime\" because of their vintage style and high-quality fabric. \n\nQuestion: How does rag relate to technology?\nAnswer: In the field of computer science, a rag can refer to an error or bug in a program that causes it to fail. It is often associated with the phrase \"a ragtag bunch,\" which means a group of disorganized or unconventional individuals. \n\nQuestion: What is the history of ragtime music?\nAnswer: Ragtime music originated in African-American communities in the late 19th century. It was heavily influenced by African rhythms and syncopated patterns, creating a unique and energetic style. The term \"rag\" itself comes from the fact that ragtime tunes were often created by rearranging existing melodies or combining different songs to form new compositions. \n\nQuestion: How is a rag used in cooking?\nAnswer: In cooking, a rag refers to a piece of kitchen cloth that can be used for various purposes, such as straining liquids, cleaning utensils, or even as a makeshift oven mitt. It is often made of cotton or other absorbent materials and comes in different sizes and designs. \n\nQuestion: What is the origin of ragtime music?\nAnswer: Ragtime music originated from African-American communities in the late 19th century. It was influenced by the use of syncopated rhythms, where accents were placed on offbeats. Ragtime quickly became popular among white audiences as well and had a significant impact on the development of jazz and other forms of music.\n",
-                "timestamp": "2025-10-04T08:56:22.977075",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 2",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    },
-                    {
-                        "text": "[2] rag research paper.pdf (PDF), page 2",
-                        "file_id": "c94a21c0-ed40-4a25-91fd-b8f05918a92b"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "id": "30e4e6f5-4f5e-4694-8364-6615827444f8",
-        "timestamp": "2025-10-04T06:57:20.045950",
-        "messages": [
-            {
-                "sender": "user",
-                "text": "what is rag and what is the national animal of china",
-                "timestamp": "2025-10-04T06:53:39.112424",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": "No relevant information found in the provided context.",
-                "timestamp": "2025-10-04T06:53:39.112424",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 2",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "what is rag and what is the national animal of china",
-                "timestamp": "2025-10-04T06:54:12.407820",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": " The term \"rag\" refers to \"retrieval-augmentation-generative-pre-training\", a research framework that combines three stages. \n\n(2) As for the question about China's national animal, it is not directly related to the context provided in the paragraph. Therefore, I am unable to provide an answer based on the information given.\n",
-                "timestamp": "2025-10-04T06:54:12.407820",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 2",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "what is the natioinal animal of china",
-                "timestamp": "2025-10-04T06:55:00.520049",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": " the national animal of China is the giant panda.\n",
-                "timestamp": "2025-10-04T06:55:00.520049",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 1",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
-                    },
-                    {
-                        "text": "[3] gk2.jpg (IMAGE)",
-                        "file_id": "f0f5b672-b1eb-42ff-aa20-a1d136bba9fa"
-                    }
-                ]
-            },
-            {
-                "sender": "user",
-                "text": "write here the flow of rag how this works",
-                "timestamp": "2025-10-04T06:57:20.045950",
-                "citations": null
-            },
-            {
-                "sender": "ai",
-                "text": " 1. The user poses a question to ChatGPT about a recent news event. \n2. The question is broken down into its constituent parts and fed into a language model (LLM). \n3. The LLM retrieves information from external databases, such as news articles, that are relevant to the user\u2019s question. \n4. This retrieved information is combined with the original question, forming a comprehensive prompt. \n5. The LLM then generates an answer based on this prompt. \n6. The user can review and edit the generated response until they are satisfied. \n7. Once the user is happy with the generated answer, it can be used as input to another LLM for further processing or analysis.\n\n",
-                "timestamp": "2025-10-04T06:57:20.045950",
-                "citations": [
-                    {
-                        "text": "[1] rag research paper.pdf (PDF), page 2",
-                        "file_id": "4cf427fc-bb10-4012-903d-507aba864ba8"
+                        "file_id": "736c0642-fd1b-435a-90a6-16fe82dd4124",
+                        "file_type": "PDF",
+                        "page_num": 2,
+                        "start_time": null,
+                        "original_filename": "rag research paper.pdf"
                     }
                 ]
             }
