@@ -1,340 +1,890 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap');
 
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #0d1117; /* Dark background */
-  overflow: hidden;
-  position: relative;
-  font-family: 'Orbitron', sans-serif;
+/* Main Container for the NTRO Chat UI */
+.ntro-chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: transparent; /* transparent rakho taaki background image visible ho */
+    overflow: hidden;
+    position: relative;
+    font-family: 'Roboto Mono', monospace, sans-serif;
+    color: #e0e0e0;
 }
 
-.animated-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('../assets/background_animation.gif') no-repeat center center / cover; /* Use a GIF or static image with JS animation */
-  opacity: 0.1; /* Subtle background */
-  z-index: 0;
+/* Background Animation / Original Image */
+.background-animation-overlay {
+    background: url('../assets/background_animation.gif') no-repeat center center;
+    background-size: cover;
+    opacity: 1;
+}
+
+.background-animation-overlay::before {
+    display: none;
+    content: none;
+}
+
+/* Background Animation Overlay (Binary Stream) */
+.background-animation-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/background_animation.gif') no-repeat center center;
+    background-size: cover; /* GIF ya image full screen cover kare */
+    opacity: 1;
+    z-index: 0;
 }
 
 /* Fallback for background animation if GIF is not available or preferred static */
 @keyframes binary-animation {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-100%);
-  }
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
 }
 
-.animated-background::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 20, 30, 0.05) 1px,
-    transparent 1px
-  );
-  background-size: 100% 10px;
-  animation: binary-animation 30s linear infinite; /* Example animation */
-  mask-image: radial-gradient(circle at center, black 50%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 80%);
-}
-
-.login-circle-container {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 600px; /* Adjust size as needed */
-  height: 600px; /* Adjust size as needed */
-  border-radius: 50%;
-  box-shadow: 0 0 50px rgba(0, 255, 255, 0.4);
-  animation: pulse-glow 3s infinite alternate;
-  background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent background for the circle */
-  border: 1px solid rgba(0, 255, 255, 0.2);
-}
-
-.login-circle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 40px;
-  border-radius: 50%;
-  width: 90%;
-  height: 90%;
-  border: 2px solid rgba(0, 255, 255, 0.5); /* Inner glowing circle border */
-  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.3);
-  background: radial-gradient(circle at center, rgba(0, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
-  position: relative;
-}
-
-.login-circle::before, .login-circle::after {
-  content: '';
-  position: absolute;
-  border: 1px dashed rgba(0, 255, 255, 0.3);
-  border-radius: 50%;
-  animation: rotate-circle 20s linear infinite;
-}
-
-.login-circle::before {
-  width: 110%;
-  height: 110%;
-  top: -5%;
-  left: -5%;
-  animation-delay: 0s;
-}
-
-.login-circle::after {
-  width: 120%;
-  height: 120%;
-  top: -10%;
-  left: -10%;
-  animation-delay: 10s;
-  animation-direction: reverse;
-}
-
-@keyframes pulse-glow {
-  from {
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-  }
-  to {
-    box-shadow: 0 0 70px rgba(0, 255, 255, 0.6);
-  }
-}
-
-@keyframes rotate-circle {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.login-header {
-  text-align: center;
-  color: #00ffff; /* Cyan glow for text */
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
-  margin-bottom: 30px;
-}
-
-.ntro-logo {
-  width: 80px; /* Adjust size */
-  height: auto;
-  margin-bottom: 10px;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.7));
-}
-
-.login-header h1 {
-  margin: 0;
-  font-size: 3em;
-  letter-spacing: 5px;
-}
-
-.login-header p {
-  margin: 5px 0 0;
-  font-size: 1em;
-  color: #00ccff;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 80%;
-  max-width: 350px;
-  /* THIS IS THE KEY TO CENTER FORM ELEMENTS HORIZONTALLY */
-  align-items: center;
-}
-
-.input-group {
-  position: relative;
-  width: 100%; /* Ensure input group takes full width to align nicely */
-}
-
-/* Styles to make labels visually "clickable" with hover feedback */
-.input-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: #00ccff;
-  font-size: 0.9em;
-  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-  cursor: pointer; /* Changes cursor to a hand on hover */
-  transition: color 0.2s ease; /* Smooth color transition */
-}
-
-.input-group label:hover {
-  color: #00ffff; /* Brighter color on hover */
-}
-
-
-.glowing-input {
-  width: 100%; /* Ensures input fills its parent (.input-group) */
-  padding: 12px 15px;
-  border: 1px solid #00aaff;
-  border-radius: 5px;
-  background-color: #0a1b2c;
-  color: #e0e0e0;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1em;
-  box-shadow: 0 0 8px rgba(0, 200, 255, 0.3);
-  transition: all 0.3s ease;
-  box-sizing: border-box; /* Include padding/border in element's total width/height */
-}
-
-.glowing-input:focus {
-  outline: none;
-  border-color: #00ffff;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-  background-color: #0d2030;
-}
-
-.access-button {
-  width: 100%; /* Important: ensures it takes full width within the centered context */
-  padding: 15px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #0099cc;
-  color: white;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.2em;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(0, 150, 200, 0.5);
-  transition: all 0.3s ease;
-}
-
-.access-button:hover:not(:disabled) {
-  background-color: #00ccff;
-  box-shadow: 0 0 20px rgba(0, 200, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6);
-  transform: translateY(-2px);
-}
-
-.access-button:disabled {
-  background-color: #335566;
-  cursor: not-allowed;
-  opacity: 0.7;
-  box-shadow: none;
-}
-
-.verifying-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  color: #00ccff;
-  font-size: 0.9em;
-  margin-top: 15px;
-}
-
-.loading-bar {
-  width: 80%;
-  height: 8px;
-  background-color: #1a3a4d;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.loading-progress {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #00ffff, #00aaff);
-  border-radius: 4px;
-  animation: load-progress 2s infinite linear;
-}
-
-@keyframes load-progress {
-  0% {
-    width: 0%;
-  }
-  50% {
+.background-animation-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-  }
-  100% {
-    width: 0%;
-  }
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(10, 20, 30, 0.05) 0px,
+        transparent 1px,
+        transparent 10px /* Adjust line spacing and transparency */
+    );
+    background-size: 100% 10px;
+    animation: binary-animation 30s linear infinite;
+    mask-image: radial-gradient(circle at center, black 50%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 80%);
 }
 
-.login-message {
-  margin-top: 20px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 0.9em;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* Main Panel - The Glowing Rectangle */
+.ntro-main-panel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    background-color: transparent;  /* change from rgba(0,0,0,0.4) */
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    border-radius: 10px;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+    overflow: hidden;
 }
 
-.login-message.success {
-  background-color: #1a4d33; /* Dark green */
-  color: #39ff14; /* Neon green */
-  border: 1px solid #39ff14;
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+
+/* Inner Glow Effect for the Panel */
+.ntro-main-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgba(0, 255, 255, 0.2); /* Inner subtle border */
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2); /* Inner glow */
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: 2; /* Above background animation, below content */
 }
 
-.login-message.error {
-  background-color: #4d1a1a; /* Dark red */
-  color: #ff3914; /* Neon red */
-  border: 1px solid #ff3914;
-  box-shadow: 0 0 10px rgba(255, 57, 20, 0.5);
+/* Left Panel - History and Controls */
+.ntro-left-panel {
+    width: 350px;
+    background-color: rgb(17, 6, 62); /* change from rgba(15,16,26,0.4) */
+    border-right: 1px solid rgba(6, 4, 43, 0.2);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.tick-mark {
-  font-size: 1.2em;
-  font-weight: bold;
+
+.ntro-agency-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .login-circle-container {
-    width: 90vw;
-    height: 90vw;
-    max-width: 500px;
-    max-height: 500px;
-  }
-  .login-circle {
-    padding: 20px;
-  }
-  .login-header h1 {
-    font-size: 2.2em;
-    letter-spacing: 3px;
-  }
-  .ntro-logo {
-    width: 60px;
-  }
-  .access-button {
-    font-size: 1em;
-    padding: 12px 15px;
-  }
+.ntro-header-logo {
+    width: 50px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.7));
 }
 
-@media (max-width: 480px) {
-  .login-header h1 {
+.agency-title h1 {
+    margin: 0;
     font-size: 1.8em;
-  }
-  .login-header p {
-    font-size: 0.8em;
-  }
-  .input-group label {
-    font-size: 0.8em;
-  }
-  .glowing-input {
-    padding: 10px 12px;
-    font-size: 0.9em;
-  }
+    letter-spacing: 2px;
 }
+
+.agency-title p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #00ccff;
+}
+
+.ntro-history-section {
+    flex-grow: 1; /* Allows history to take available space */
+    margin-bottom: 20px;
+    overflow-y: auto; /* Scroll for history list */
+    padding-right: 5px; /* Space for scrollbar */
+}
+
+.ntro-history-section h3 {
+    color: #00ccff;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    padding-bottom: 5px;
+}
+
+.ntro-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ntro-no-history {
+    color: #888;
+    font-style: italic;
+    padding: 10px 0;
+    font-size: 0.85em;
+}
+
+.ntro-history-item {
+    background-color: #202235; /* Dark item background */
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    font-size: 0.8em;
+    color: #c0c0e0;
+    display: flex;
+    align-items: center;
+    position: relative; /* For the small circle indicator */
+}
+
+.ntro-history-item::before {
+    content: '';
+    width: 6px;
+    height: 4px;
+    background-color: #00ffff; /* Cyan indicator circle */
+    border-radius: 50%;
+    position: absolute;
+    left: -15px; /* Position outside the item */
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.8;
+}
+
+.ntro-history-item:hover {
+    background-color: #282a40;
+    box-shadow: 0 0 5px rgba(0, 200, 255, 0.3);
+}
+
+.history-item-text {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-date {
+    font-size: 0.9em;
+    color: #888;
+    margin-left: 10px;
+    flex-shrink: 0; /* Prevent date from shrinking */
+}
+
+/* Upload Section */
+.ntro-upload-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.ntro-upload-button {
+    display: block;
+    width: 90%;
+    padding: 12px;
+    background-color: #007bff; /* Blue for upload */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+}
+
+.ntro-upload-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+}
+
+/* User Controls Section */
+.ntro-user-controls {
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.ntro-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    background-color: #2e304a; /* Darker background for user info */
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #aaffff;
+    font-size: 0.9em;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.ntro-user-info .user-icon {
+    font-size: 1.2em;
+    color: #00ffff;
+}
+
+.ntro-logout-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #dc3545; /* Red for logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+}
+
+.ntro-logout-button:hover {
+    background-color: #c82333;
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.6);
+}
+
+/* Right Panel - Chat and Interaction */
+.ntro-right-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    position: relative;
+    background-color: rgba(20, 20, 30, 0.6); /* Slightly lighter transparent background for chat */
+}
+
+.ntro-chat-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 15px; /* Space for scrollbar */
+    margin-bottom: 20px;
+    /* Custom Scrollbar for chat area */
+    scrollbar-width: thin;
+    scrollbar-color: #4a4a7a #1a1a2e;
+}
+.ntro-chat-area::-webkit-scrollbar {
+    width: 8px;
+}
+.ntro-chat-area::-webkit-scrollbar-track {
+    background: #1a1a2e;
+    border-radius: 4px;
+}
+.ntro-chat-area::-webkit-scrollbar-thumb {
+    background: #4a4a7a;
+    border-radius: 4px;
+    border: 1px solid #2e2e4a;
+}
+.ntro-chat-area::-webkit-scrollbar-thumb:hover {
+    background: #6a6ab0;
+}
+
+.ntro-welcome-message {
+    text-align: left; /* Aligns welcome message to left */
+    padding: 10px 0;
+    color: #00ffff;
+    opacity: 0.8;
+}
+
+.ntro-welcome-message h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.7);
+}
+
+.ntro-welcome-message p {
+    font-size: 1em;
+    color: #00ccff;
+    margin-bottom: 20px;
+}
+
+/* Specific styling for the initial AI response in the welcome message */
+.ntro-user-bubble {
+    background-color: #007bff; /* Blue for user messages */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 18px 18px 5px 18px; /* Specific bubble shape */
+    max-width: 60%;
+    align-self: flex-end;
+    margin-left: auto; /* Push to right */
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-size: 0.95em;
+}
+
+.ntro-ai-response-placeholder {
+    background-color: #2e304a; /* AI message dark blue-grey */
+    color: #e0e0e0;
+    padding: 12px 18px;
+    border-radius: 18px 18px 18px 5px; /* Specific bubble shape */
+    max-width: 70%;
+    align-self: flex-start;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    line-height: 1.5;
+    font-size: 0.95em;
+}
+
+.ntro-citation-placeholder {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #90ee90; /* Light green for citations */
+    cursor: pointer;
+    text-decoration: underline;
+}
+.ntro-citation-placeholder:hover {
+    color: #39ff14;
+}
+
+/* Existing Message Component styles */
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    margin-bottom: 15px;
+    position: relative;
+}
+.user-message {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+.ai-message {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+.message-bubble {
+    padding: 12px 18px;
+    border-radius: 18px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    line-height: 1.5;
+    font-size: 0.95em;
+}
+.user-message .message-bubble {
+    background-color: #007bff; /* User message blue */
+    color: white;
+    border-bottom-right-radius: 5px; /* Tail */
+}
+.ai-message .message-bubble {
+    background-color: #2e304a; /* AI message dark blue-grey */
+    color: #e0e0e0;
+    border-bottom-left-radius: 5px; /* Tail */
+}
+.message-timestamp {
+    font-size: 0.75em;
+    color: #888;
+    margin-top: 5px;
+    align-self: flex-start;
+}
+.user-message .message-timestamp {
+    align-self: flex-end;
+}
+.ntro-loading-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00ccff;
+    font-style: italic;
+    font-size: 0.9em;
+}
+.loading-dots span {
+    animation: bounce 1s infinite;
+    opacity: 0;
+}
+.loading-dots span:nth-child(1) { animation-delay: 0s; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); opacity: 0; }
+    50% { transform: translateY(-5px); opacity: 1; }
+}
+.error-message .message-bubble {
+    background-color: #dc3545; /* Red for errors */
+    color: white;
+}
+.citation-link {
+    color: #0a1006; /* Light green for citations */
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.citation-link:hover {
+    color: #39ff14; /* Brighter neon green on hover */
+}
+
+/* Chat Input Form */
+.ntro-chat-input-form {
+    display: flex;
+    gap: 15px;
+    padding: 15px 20px;
+    background-color: rgba(46, 48, 74, 0.9); /* Darker, slightly transparent for input bar */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); /* Glowing border effect */
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    margin-top: auto; /* Push to bottom */
+}
+
+.ntro-chat-input-form input {
+    flex-grow: 1;
+    padding: 12px 18px;
+    border: 1px solid #4a4c68;
+    border-radius: 25px;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1em;
+    box-shadow: inset 0 0 5px rgba(0, 200, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.ntro-chat-input-form input:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: inset 0 0 8px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+.ntro-chat-input-form button {
+    background-color: #0099cc;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.3em;
+    box-shadow: 0 0 10px rgba(0, 150, 200, 0.4);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ntro-chat-input-form button:hover:not(:disabled) {
+    background-color: #00ccff;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.6);
+}
+
+.ntro-chat-input-form button:disabled {
+    background-color: #335566;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.ntro-send-icon {
+    transform: translateX(2px); /* Adjust icon position */
+}
+
+/* Admin Panel */
+.ntro-admin-panel {
+    background-color: rgba(15, 16, 26, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    max-height: 500px; /* Bada height, pura content visible */
+    overflow-y: auto;   /* Scroll agar zyada users ho */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Create User Form */
+.ntro-create-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ntro-create-user-form input {
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: 1px solid #4a4c68;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+}
+
+.ntro-create-user-form button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ntro-create-user-form button:hover {
+    background-color: #00ccff;
+}
+
+/* Existing Users List */
+.ntro-users-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ntro-users-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #202235;
+    border-radius: 4px;
+}
+
+.ntro-users-list li button {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+}
+
+.ntro-users-list li button:hover {
+    background-color: #c82333;
+}
+.ntro-right-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    position: relative;
+    background-color: transparent; /* change from rgba(20,20,30,0.6) */
+}
+/* New Chat Button - Small Stylish Version */
+.ntro-new-chat-button {
+    display: inline-block;
+    padding: 7px 12px;       /* Smaller padding */
+    background-color: #00ffff;
+    color: #000;
+    font-weight: bold;
+    font-size: 0.80em;       /* Smaller font */
+    border: none;
+    border-radius: 6px;      /* Slightly smaller rounded corners */
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.5); /* Slightly smaller glow */
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Hover effect - same glow and slight zoom */
+.ntro-new-chat-button:hover {
+    background-color: #00ccff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    transform: scale(1.05);
+}
+
+/* Disabled state */
+.ntro-new-chat-button:disabled {
+    background-color: #335566;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+/* frontend/src/styles/ChatPage.css - ADD THESE STYLES */
+
+/* Styles for citations container */
+.citations-container {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Lighter line for separation */
+    font-size: 0.85em;
+    color: #b0b0b0;
+}
+
+.citations-container strong {
+    color: #e0e0e0; /* Make "Citations:" stand out */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.citation-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow citations to wrap if too many */
+    gap: 8px; /* Space between citation items */
+}
+
+.citation-item {
+    background-color: rgba(68, 102, 119, 0.3); /* Slightly darker background for citation tags */
+    border: 1px solid rgba(85, 128, 147, 0.5); /* Border for definition */
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: default; /* Default cursor for non-clickable */
+    user-select: none; /* Prevent text selection */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    color: #cceeff; /* Light blue text for citations */
+}
+
+.citation-item.clickable-citation {
+    cursor: pointer; /* Pointer cursor for clickable items */
+    background-color: rgba(85, 128, 147, 0.5); /* More prominent background for clickable */
+    border-color: #66b2ff; /* Blue border for clickable */
+}
+
+.citation-item.clickable-citation:hover {
+    background-color: rgba(95, 148, 167, 0.7); /* Darker on hover */
+    border-color: #aaccff;
+    text-decoration: underline;
+}
+
+/* Ensure system messages are distinct */
+.system-message {
+    background-color: rgba(50, 50, 50, 0.5);
+    color: #ddd;
+    text-align: center;
+    padding: 8px 15px;
+    border-radius: 15px;
+    margin: 10px auto;
+    max-width: 60%;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Adjustments for better history display */
+.ntro-history-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.ntro-history-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.history-item-text {
+    color: #e0e0e0;
+    font-size: 0.95em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-date {
+    font-size: 0.75em;
+    color: #aaa;
+    margin-left: 10px;
+}
+
+/* Button for deleting user in admin panel */
+.ntro-users-list button.delete-user-button {
+    background-color: #dc3545; /* Red color */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.ntro-users-list button.delete-user-button:hover {
+    background-color: #c82333;
+}
+/* --- Add/Update these styles in frontend/src/styles/ChatPage.css --- */
+
+/* Base message styling (can be in ChatPage.css or its own Message.css) */
+.message {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-end; /* Align timestamp to bottom */
+}
+
+.message-bubble {
+    padding: 12px 18px;
+    border-radius: 20px;
+    max-width: 70%;
+    position: relative;
+    word-wrap: break-word; /* Ensure long words wrap */
+}
+
+.user-message .message-bubble {
+    background-color: #007bff; /* Blue for user */
+    color: white;
+    border-bottom-right-radius: 5px;
+    margin-left: auto; /* Push user message to the right */
+}
+
+.ai-message .message-bubble {
+    background-color: #343a40; /* Darker for AI */
+    color: white;
+    border-bottom-left-radius: 5px;
+    margin-right: auto; /* Push AI message to the left */
+}
+
+.system-message { /* For upload messages, etc. */
+    text-align: center;
+    font-style: italic;
+    color: #b0b0b0;
+    margin: 10px auto;
+    max-width: 80%;
+}
+
+.message-timestamp {
+    font-size: 0.7em;
+    color: #888;
+    margin: 0 5px;
+    white-space: nowrap; /* Prevent timestamp from wrapping */
+}
+
+.user-message .message-timestamp {
+    order: -1; /* Place timestamp before bubble for user messages */
+}
+
+/* Error Message Specifics */
+.error-message .message-bubble {
+    background-color: #dc3545; /* Red for errors */
+    color: white;
+}
+
+/* --- Inline Citation Styling --- */
+.citation-link {
+    text-decoration: underline;
+    color: #66b2ff; /* Light blue for clickable text */
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0 2px; /* Small spacing around inline links */
+    transition: color 0.2s ease;
+}
+
+.citation-link:hover {
+    color: #aaccff; /* Lighter blue on hover */
+    text-decoration: underline;
+}
+
+/* --- Citation List Styling (below the message) --- */
+.citation-list-container {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Separator line */
+    font-size: 0.85em;
+    color: #b0b0b0;
+}
+
+.citation-list-container strong {
+    color: #e0e0e0;
+    margin-bottom: 5px;
+    display: block; /* Make "Sources:" on its own line */
+}
+
+.citation-list-container ul {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.citation-list-container li {
+    margin-bottom: 5px;
+}
+
+.citation-list-container .citation-link.clickable-citation-list-item {
+    text-decoration: underline;
+    color: #99eeff; /* Slightly different blue for list items */
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.citation-list-container .citation-link.clickable-citation-list-item:hover {
+    color: #cceeff;
+    text-decoration: underline;
+}
+
+/* Styles for non-clickable citations in the list (e.g., if file_id is missing) */
+.citation-list-container .citation-link:not(.clickable-citation-list-item) {
+    color: #888; /* Dim text for non-clickable */
+    cursor: default;
+    text-decoration: none;
+}
+
+/* Loading dots animation for processing messages */
+.ntro-loading-message {
+    text-align: center;
+    color: #b0b0b0;
+    font-style: italic;
+}
+
+.loading-dots span {
+    animation: blink 1.4s infinite linear;
+    animation-fill-mode: both;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0% { opacity: 0.2; }
+    20% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+/* Adjustments for the main chat area layout if needed */
+.ntro-chat-area {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.ntro-chat-input-form {
+    display: flex;
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #2a2e33;
+}
+

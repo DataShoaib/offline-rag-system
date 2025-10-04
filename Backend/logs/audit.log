@@ -1,44 +1,56 @@
 INFO:sentence_transformers.SentenceTransformer:Use pytorch device_name: cpu
 INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
-WARNING:huggingface_hub.file_download:Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
 INFO:chromadb.telemetry.product.posthog:Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-INFO:root:Login: admin at 2025-09-29 18:43:58.079087
+WARNING:chromadb.db.impl.sqlite:\u26a0\ufe0f It looks like you upgraded from a version below 0.6 and could benefit from vacuuming your database. Run chromadb utils vacuum --help for more information.
+INFO:root:Login: admin at 2025-10-04 11:02:46.910062
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
 INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: hey by admin at 2025-09-29 18:44:36.204330
+INFO:root:Query: what is rag (Conv ID: 36127822-075a-4a7a-a264-ffb598d14e5e) by admin at 2025-10-04 11:03:18.795741
+INFO:root:Upload: rag research paper.pdf (ID: 5ea73597-414c-401b-b768-631e46ab1a27) by admin at 2025-10-04 11:04:15.309963
+ERROR:root:Decryption validation failed for file_id 5ea73597-414c-401b-b768-631e46ab1a27: 
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
+ERROR:root:Decryption validation failed for file_id 5ea73597-414c-401b-b768-631e46ab1a27: 
+ERROR:root:Decryption validation failed for file_id ed643e26-b212-4ee5-9702-3d004336db43: 
 INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: hey by admin at 2025-09-29 18:44:40.227930
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: hey by admin at 2025-09-29 18:44:44.586201
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: hey by admin at 2025-09-29 18:44:47.443669
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: hey by admin at 2025-09-29 18:44:51.968073
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: hey by admin at 2025-09-29 18:44:56.319682
-INFO:root:User created: jamil123 by admin at 2025-09-29 18:45:59.047592
-INFO:root:Login: jamil123 at 2025-09-29 18:46:33.371480
-INFO:root:Login: admin at 2025-09-29 18:47:47.537594
-INFO:root:Login: jamil123 at 2025-09-29 18:48:30.503426
-INFO:root:Login: admin at 2025-09-29 19:28:42.069708
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
-INFO:sentence_transformers.SentenceTransformer:Use pytorch device_name: cpu
-INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
-INFO:chromadb.telemetry.product.posthog:Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: hey by admin at 2025-09-29 19:30:54.166605
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: what your model name by admin at 2025-09-29 19:31:16.285196
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: i m shoaib by admin at 2025-09-29 19:31:44.284632
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: i m shoaib by admin at 2025-09-29 19:31:55.102381
-INFO:httpx:HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
-INFO:root:Query: i m shoaib by admin at 2025-09-29 19:32:02.720671
-INFO:sentence_transformers.SentenceTransformer:Use pytorch device_name: cpu
-INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
-INFO:chromadb.telemetry.product.posthog:Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
-INFO:sentence_transformers.SentenceTransformer:Use pytorch device_name: cpu
-INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
-INFO:chromadb.telemetry.product.posthog:Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+INFO:root:Query: what is rag (Conv ID: 7c5840f0-bab3-45a8-a88d-a40cc8fa037c) by admin at 2025-10-04 11:05:02.225485
+2025-10-04 11:11:05,332 - INFO - Use pytorch device_name: cpu
+2025-10-04 11:11:05,332 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-10-04 11:11:12,963 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-10-04 11:11:13,436 - WARNING - \u26a0\ufe0f It looks like you upgraded from a version below 0.6 and could benefit from vacuuming your database. Run chromadb utils vacuum --help for more information.
+2025-10-04 11:18:07,934 - INFO - Use pytorch device_name: cpu
+2025-10-04 11:18:07,934 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-10-04 11:18:16,993 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-10-04 11:18:17,419 - WARNING - \u26a0\ufe0f It looks like you upgraded from a version below 0.6 and could benefit from vacuuming your database. Run chromadb utils vacuum --help for more information.
+2025-10-04 11:18:35,328 - WARNING - Vector store search failed for query: 'hello'. Error: langchain_core.vectorstores.base.VectorStore.asimilarity_search_with_score() got multiple values for keyword argument 'k'
+2025-10-04 11:18:46,528 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-10-04 11:19:07,264 - INFO - File uploaded and ingested: rag research paper.pdf (ID: 882c6890-facb-4fa1-bc90-0f0f14d8a943) by admin
+2025-10-04 11:19:18,776 - WARNING - Vector store search failed for query: 'what is rag'. Error: langchain_core.vectorstores.base.VectorStore.asimilarity_search_with_score() got multiple values for keyword argument 'k'
+2025-10-04 11:19:19,416 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-10-04 11:35:35,381 - INFO - Use pytorch device_name: cpu
+2025-10-04 11:35:35,381 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-10-04 11:35:42,134 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-10-04 11:36:09,026 - WARNING - File ed643e26-b212-4ee5-9702-3d004336db43 failed decryption during citation check for query context.
+2025-10-04 11:36:09,043 - WARNING - File 5ea73597-414c-401b-b768-631e46ab1a27 failed decryption during citation check for query context.
+2025-10-04 11:36:09,055 - WARNING - File 882c6890-facb-4fa1-bc90-0f0f14d8a943 failed decryption during citation check for query context.
+2025-10-04 11:36:09,070 - WARNING - File ed643e26-b212-4ee5-9702-3d004336db43 failed decryption during citation check for query context.
+2025-10-04 11:36:09,071 - WARNING - File 882c6890-facb-4fa1-bc90-0f0f14d8a943 failed decryption during citation check for query context.
+2025-10-04 11:36:11,578 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-10-04 11:36:38,365 - INFO - File uploaded and ingested: rag research paper.pdf (ID: 0fd8634c-2f3f-4685-a78f-b79c3a1fe82a) by admin
+2025-10-04 11:36:44,371 - WARNING - File ed643e26-b212-4ee5-9702-3d004336db43 failed decryption during citation check for query context.
+2025-10-04 11:36:44,374 - WARNING - File 5ea73597-414c-401b-b768-631e46ab1a27 failed decryption during citation check for query context.
+2025-10-04 11:36:44,377 - WARNING - File 882c6890-facb-4fa1-bc90-0f0f14d8a943 failed decryption during citation check for query context.
+2025-10-04 11:36:44,399 - WARNING - File 0fd8634c-2f3f-4685-a78f-b79c3a1fe82a failed decryption during citation check for query context.
+2025-10-04 11:36:44,402 - WARNING - File ed643e26-b212-4ee5-9702-3d004336db43 failed decryption during citation check for query context.
+2025-10-04 11:36:44,648 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-10-04 11:45:52,195 - INFO - Use pytorch device_name: cpu
+2025-10-04 11:45:52,195 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-10-04 11:45:59,747 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-10-04 11:46:00,256 - INFO - No invalid documents found in vector store.
+2025-10-04 11:46:44,633 - ERROR - Failed to encrypt or verify file rag research paper.pdf (ID: cd513e53-d5f6-41d4-b189-33eac179f162): 
+2025-10-04 11:47:06,266 - ERROR - Failed to encrypt or verify file gk.png (ID: ca132f36-0d67-4215-ba99-5348e0f0c602): 
+2025-10-04 11:47:57,667 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"

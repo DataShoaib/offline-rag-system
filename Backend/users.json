@@ -1,1 +1,12 @@
-{"admin": {"username": "admin", "hashed_password": "$2b$12$rKHyOSCm8iuPGlKtPvsjKOS7zgHr16Fx9/zsHPG.bcGsH9BlC8i4e", "role": "Admin"}, "jamil123": {"username": "jamil123", "hashed_password": "$2b$12$aG/eq7.8ixJC1cgQxH6ERu8YqNOKSqZQmzv0cR11L1hKscA0C55.q", "role": "Guest"}}
+{
+    "admin": {
+        "username": "admin",
+        "hashed_password": "$2b$12$rysXx4RbumVbH1YQC07AhOswfEZq/My1B7wb2MYyU9B6UM1JBGOpG",
+        "role": "Admin"
+    },
+    "user1234": {
+        "username": "user1234",
+        "hashed_password": "$2b$12$HtOs7z.R3SvZZLoBEry1Qebk10YqEcXeWNvN4j0l5dbyq4I3Wz.nS",
+        "role": "User"
+    }
+}

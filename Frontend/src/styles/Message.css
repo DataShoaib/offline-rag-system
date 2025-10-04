@@ -1,0 +1,80 @@
+/* Message.css */
+.message {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  padding: 10px;
+  max-width: 80%;
+}
+
+.user-message {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: white;
+  border-radius: 10px 10px 0 10px;
+}
+
+.ai-message {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px 10px 10px 0;
+}
+
+.system-message {
+  align-self: center;
+  background-color: #e9ecef;
+  color: #495057;
+  border-radius: 10px;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message-bubble {
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.citation-link {
+  color: #6c757d;
+  text-decoration: none;
+  cursor: default;
+}
+
+.citation-link.clickable-citation,
+.citation-link.clickable-citation-list-item {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.citation-link.clickable-citation:hover,
+.citation-link.clickable-citation-list-item:hover {
+  color: #0056b3;
+}
+
+.citation-list-container {
+  margin-top: 8px;
+  font-size: 0.9em;
+}
+
+.citation-list-container ul {
+  list-style-type: none;
+  padding-left: 10px;
+  margin: 5px 0;
+}
+
+.citation-list-container li {
+  margin-bottom: 5px;
+}
+
+.message-timestamp {
+  font-size: 0.8em;
+  color: #6c757d;
+  margin-top: 5px;
+  align-self: flex-end;
+}
